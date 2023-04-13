@@ -16,21 +16,23 @@
         <!--主要提供SparkConf和SparkContext对象-->
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-core_2.12</artifactId>
-            <version>3.2.0</version>
+            <artifactId>spark-core_2.11</artifactId>
+            <version>2.3.2</version>
         </dependency>
         <!--提供SparkSession对象-->
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-sql_2.12</artifactId>
-            <version>3.2.0</version>
+            <artifactId>spark-sql_2.11</artifactId>
+            <version>2.3.2</version>
         </dependency>
         <!--spark读取kafka的connector-->
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-sql-kafka-0-10 -->
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-sql-kafka-0-10_2.12</artifactId>
-            <version>3.2.0</version>
+            <artifactId>spark-sql-kafka-0-10_2.11</artifactId>
+            <version>2.3.2</version>
         </dependency>
+
         <!--通过json转换-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -38,10 +40,11 @@
             <version>1.2.71</version>
         </dependency>
         <!--提供spark读取hive-->
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-hive -->
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-hive_2.12</artifactId>
-            <version>3.2.0</version>
+            <artifactId>spark-hive_2.11</artifactId>
+            <version>2.3.2</version>
         </dependency>
 
         <dependency>
@@ -63,7 +66,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.0</version><!--20220418因spark2升级到spark3升级到用3.2.0-->
+                <version>3.2.0</version>
                 <configuration>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
                     <shadedClassifierName>with-dependencies</shadedClassifierName><!--给依赖包添加后缀名-->
@@ -73,10 +76,11 @@
                         </includes>
                         <excludes>
                             <exclude>junit:junit</exclude> <!--排除jar包-->
+                            <exclude>org.apache:hadoop</exclude>
                         </excludes>
                     </artifactSet>
 
-                    <filters><!--去掉META-INF文件中可能出现的非法签名文件-->
+                    <filters> <!--去掉META-INF文件中可能出现的非法签名文件-->
                         <filter>
                             <artifact>*:*</artifact>
                             <excludes>
